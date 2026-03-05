@@ -25,6 +25,17 @@ export function ProductsPage() {
     setProducts((prev) => [product, ...prev]);
   }
 
+  function handleProductUpdated(updated) {
+    setProducts((prev) =>
+      prev.map((p) => (p.id === updated.id ? updated : p))
+    );
+  }
+  
+  function handleProductDeleted(id) {
+    setProducts((prev) => prev.filter((p) => p.id !== id));
+  }
+  
+
   if (loading) {
     return <div className="state">Загрузка товаров...</div>;
   }
@@ -49,7 +60,12 @@ export function ProductsPage() {
           <h2 className="products-section__title">Список товаров</h2>
           <div className="products-grid">
             {products.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <ProductCard
+                key={p.id}
+                product={p}
+                onUpdated={handleProductUpdated}
+                onDeleted={handleProductDeleted}
+              />
             ))}
           </div>
         </section>

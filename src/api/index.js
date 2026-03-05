@@ -33,4 +33,26 @@ export async function createProduct(payload) {
   return res.json();
 }
 
-console.log('Happy developing ✨')
+export async function updateProduct(id, payload) {
+  const res = await fetch(`${API_BASE}/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    throw new Error('Ошибка при обновлении товара');
+  }
+  return res.json();
+}
+
+export async function deleteProduct(id) {
+  const res = await fetch(`${API_BASE}/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) {
+    throw new Error('Ошибка при удалении товара');
+  }
+  return res.json();
+}
